@@ -2,15 +2,15 @@ var Eventify,
   slice = [].slice;
 
 Eventify = {
-  assign: function(obj) {
+  enhance: function(obj) {
     var k, p, results;
     results = [];
     for (k in this) {
       p = this[k];
-      if (!obj.hasOwnProperty(p) && k !== "assign") {
+      if (!obj.hasOwnProperty(p) && k !== "enhance") {
         results.push(obj[k] = p);
       } else {
-        results.push(console.log("Property '" + k + "' not added (already found on object)."));
+        results.push(console.warn("Property '" + k + "' not added (already found on object)."));
       }
     }
     return results;
