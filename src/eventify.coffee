@@ -2,23 +2,23 @@
 # object the ability to listen to and fire events in a very simple, clean way.
 ;Eventify = {
 
-  # assing takes a target object and adds all of Eventify's properties to it turning
+  # enhance takes a target object and adds all of Eventify's properties to it turning
   # it into a simple event machine
-  assign : (obj) ->
+  enhance : (obj) ->
 
     # iterate over each of Eventify's properties adding them to the desired object
     # unless it already has one
     for k, p of @
 
       # we'll assume that someone doesn't want their events overriden by default;
-      # also, the object has no use for the "assign" method.
-      if !obj.hasOwnProperty(p) && k != "assign"
+      # also, the object has no use for the "enhance" method.
+      if !obj.hasOwnProperty(p) && k != "enhance"
         obj[k] = p
 
       # just let the user know what a property that eventify uses was found and
       # didn't get overriden. They can change their property if they want to use
       # Eventify
-      else console.log "Property '#{k}' not added (already found on object)."
+      else console.warn "Property '#{k}' not added (already found on object)."
 
   # the list of registered events
   _events: {}
