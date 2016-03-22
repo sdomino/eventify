@@ -7,8 +7,12 @@ Eventify = {
     results = [];
     for (k in this) {
       p = this[k];
-      if (!obj.hasOwnProperty(p) && k !== "enhance") {
-        results.push(obj[k] = p);
+      if (!obj.hasOwnProperty(p)) {
+        if (k !== "enhance") {
+          results.push(obj[k] = p);
+        } else {
+          results.push(void 0);
+        }
       } else {
         results.push(console.warn("Property '" + k + "' not added (already found on object)."));
       }

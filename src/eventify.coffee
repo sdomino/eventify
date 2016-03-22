@@ -10,10 +10,11 @@
     # unless it already has one
     for k, p of @
 
-      # we'll assume that someone doesn't want their events overriden by default;
-      # also, the object has no use for the "enhance" method.
-      if !obj.hasOwnProperty(p) && k != "enhance"
-        obj[k] = p
+      # we'll assume that someone doesn't want their events overriden by default
+      if !obj.hasOwnProperty(p)
+
+        # the object has no use for the "enhance" method
+        if k != "enhance" then obj[k] = p
 
       # just let the user know what a property that eventify uses was found and
       # didn't get overriden. They can change their property if they want to use
