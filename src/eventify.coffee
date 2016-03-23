@@ -2,9 +2,9 @@
 # object the ability to listen to and fire events in a very simple, clean way.
 ;Eventify = {
 
-  # enhance takes a target object and adds all of Eventify's properties to it turning
+  # extend takes a target object and adds all of Eventify's properties to it turning
   # it into a simple event machine
-  enhance : (obj) ->
+  extend : (obj) ->
 
     # iterate over each of Eventify's properties adding them to the desired object
     # unless it already has one
