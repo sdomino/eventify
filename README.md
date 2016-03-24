@@ -9,7 +9,7 @@ obj = {}
 obj.fire("event") # => obj.fire is not a function
 
 # eventify your object
-Eventify.enhance(obj)
+Eventify.extend(obj)
 
 # your object that now CAN emit/handle events
 obj.on("event", () -> console.log("event!"))
