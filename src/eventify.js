@@ -2,7 +2,7 @@ var Eventify,
   slice = [].slice;
 
 Eventify = {
-  enhance: function(obj) {
+  extend: function(obj) {
     var k, p, results;
     results = [];
     for (k in this) {
