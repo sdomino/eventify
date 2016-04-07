@@ -2,9 +2,15 @@
 # object the ability to listen to and fire events in a very simple, clean way.
 ;Eventify = {
 
+  # init allows you to use Eventify itself as an event emitter/handler.
+  init : () -> @_events = {}
+
   # extend takes a target object and adds all of Eventify's properties to it turning
   # it into a simple event machine
   extend : (obj) ->
+
+    # the list of registered events
+    obj._events = {}
 
     # iterate over each of Eventify's properties adding them to the desired object
     # unless it already has one
@@ -21,24 +27,21 @@
       # Eventify
       else console.warn "Property '#{k}' not added (already found on object)."
 
-  # the list of registered events
-  _events: {}
-
   # checks if a given [key] is a registered event
-  _has_event : (key) -> @._events[key]?
+  _has_event : (key) -> @_events[key]?
 
   # checks if a given [handler] is registered on a [key]
-  _has_handler : (key, handler) -> @._events[key].indexOf(handler) != -1
+  _has_handler : (key, handler) -> @_events[key].indexOf(handler) != -1
 
   # add event handler unless it's already present
   _add_handler : (key, handler) ->
-    @._events[key] ||= []
-    @._events[key].push handler unless @_has_handler(key, handler)
+    @_events[key] ||= []
+    @_events[key].push handler unless @_has_handler(key, handler)
 
   # removes given [handler] from [key]
   _remove_handler: (key, handler) ->
     return unless @_has_event(key) && @_has_handler(key, handler)
-    @._events[key].splice(@._events[key].indexOf(handler), 1)
+    @_events[key].splice(@_events[key].indexOf(handler), 1)
 
   # registers an event [handler] to a [key]
   on : (key, handler) ->
@@ -58,18 +61,18 @@
   # unregister all events
   off : (key, handler) ->
     if (key && handler) then @_remove_handler(key, handler)
-    else if key then delete @._events[key]
-    else @._events = {}
+    else if key then delete @_events[key]
+    else @_events = {}
 
   # fire an event by its registered [key]
   fire : (key, data, args...) ->
-    return unless @._events[key]
-    handler?.apply @, [key, data, args] for handler in @._events[key]
+    return unless @_events[key]
+    handler?.apply @, [key, data, args] for handler in @_events[key]
     true
 
   # if [key] is provided, list all registered [handler]s for [key].
   # If no [key] is provided, list all registered [key]s and corresponding [handler]s
   events : (key) ->
-    return @log "Registered Events - ", @._events unless key
-    if @_has_event(key) then @._events[key] else @log "Unknown event - ", key
+    return @log "Registered Events - ", @_events unless key
+    if @_has_event(key) then @_events[key] else @log "Unknown event - ", key
 }

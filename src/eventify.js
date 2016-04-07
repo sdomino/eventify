@@ -2,8 +2,12 @@ var Eventify,
   slice = [].slice;
 
 Eventify = {
+  init: function() {
+    return this._events = {};
+  },
   extend: function(obj) {
     var k, p, results;
+    obj._events = {};
     results = [];
     for (k in this) {
       p = this[k];
@@ -19,7 +23,6 @@ Eventify = {
     }
     return results;
   },
-  _events: {},
   _has_event: function(key) {
     return this._events[key] != null;
   },
