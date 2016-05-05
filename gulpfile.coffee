@@ -1,5 +1,4 @@
 gulp      = require 'gulp'
-
 clean     = require 'gulp-clean'
 coffee    = require 'gulp-coffee'
 gutil     = require 'gulp-util'
@@ -41,8 +40,6 @@ _watch = () ->
   gulp.watch "./stage/*.jade", -> _markup()
   gulp.watch "./src/*.coffee", -> _scripts()
 
-
 ## tasks
 gulp.task 'compile', () -> _markup(); _scripts()
-gulp.task 'publish', () -> _publish()
 gulp.task 'default', ['compile'], -> _watch()
